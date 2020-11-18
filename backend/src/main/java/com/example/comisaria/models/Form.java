@@ -1,11 +1,11 @@
 package com.example.comisaria.models;
 
-import javax.persistence.Column;
+import java.util.Date;
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class Form{
@@ -18,9 +18,12 @@ public class Form{
     private String address;
     private String reason;
     private String email;
-    
+    private Date initialDate;
+    private Date finalDate;
+
+
     public Form(){
-        
+
     }
     public Form(String run,String name, String address, String reason){
         this.run = run;
@@ -52,7 +55,6 @@ public class Form{
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -75,5 +77,17 @@ public class Form{
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+    public void setInitialDate(Date date){
+      this.initialDate = date;
+    }
+    public void setFinalDate(Date date){
+      this.initialDate = date;
+    }
+    public Date addHours(Date date, int hours){
+      Calendar endingDate = Calendar.getInstance();
+      endingDate.setTime(date);
+      endingDate.add(Calendar.HOUR_OF_DAY,hours);
+      return endingDate.getTime();
     }
 }
