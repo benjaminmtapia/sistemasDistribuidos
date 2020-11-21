@@ -15,10 +15,7 @@ Luego de implementar el sistema, se tiene una arquitectura como la siguiente
 
 
 - Transparencia: Está dirigida a ocultar los componentes del Sistema al usuario, para que este lo vea como un todo, en lugar de distintos componentes  independientes conectados. La transparencia se puede subdidividir en:
-- - Transparencia de
-- - Transparencia de
-- - Transparencia de
-- - Transparencia de
+
  
 - Escalabilidad: Capacidad de adaptación y respuesta del sistema respecto a su propio rendimiento para mejorar la capacidad de trabajo. Esta se divide en vertical (división de capacidad de recursos) y horizontal (división de cantidad de recursos). 
 - Apertura: Es la característica de un sistema que permite añadirle nuevas características y servicios de forma dinámica. Se consigue mediante una buena especificación y la publicación de las interfaces de los componentes.
