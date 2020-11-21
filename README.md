@@ -10,9 +10,7 @@ El objetivo del Sistema es recrear la página [comisariavirtual](https://comisar
 - Base de Datos: Postgresql
 
 Luego de implementar el sistema, se tiene una arquitectura como la siguiente
-![Arquitectura del Sistema]
-(images/Arquitectura_Pep1.png)
-
+![Arquitectura de sistema](/images/Arquitecutra_Pep1.png)
 ### Características de un Sistema Distribuido
 
 
@@ -22,4 +20,9 @@ Luego de implementar el sistema, se tiene una arquitectura como la siguiente
 - Disponibilidad Se refiere a la disponibilidad de recursos del sistema. Éste debe ser capaz de acceder a los recursos en todo momento. Si se presentan fallos, el sistema debe ser capaz de acceder a recursos replicados para combatir la pérdida de datos. 
 ### Análisis del Sistema Implementado
 
+- Transparencia: No existe transparencia en el sistema implementado, debido a que se implementó en un solo equipo y no en distintas componentes. Por lo tanto, al no estar distribuido, no puede considerarse transparente.
+- Escalabilidad:
+- Apertura: El sistema es abierto ya que usa los estándares de REST API para su funcionamiento, y se utiliza el protocolo HTTP, mientras que las peticiones a la API se realizan en formato JSON.
+- Disponibilidad:
 ### Capacidad de Respuesta del Sistema
+Para las pruebas se utiliza Artillery.io, el cual permite simular las peticiones POST al backend del Sistema. 
