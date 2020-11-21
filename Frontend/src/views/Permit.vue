@@ -24,13 +24,12 @@
     >
       <v-container style="margin-top: 200px; align: center;">
         <v-form class="form" ref="form" v-model="valid" lazy-validation>
-          <v-text class="text">
+          <h1 class="text">
             Solicitud de permiso temporal
-          </v-text>
+          </h1>
           <v-text-field
             v-model="model.name"
             :counter="30"
-            :rules="nameRules"
             label="Nombre completo"
             required
           ></v-text-field>
@@ -38,7 +37,6 @@
           <v-text-field
             v-model="model.run"
             :counter="10"
-            :rules="runRules"
             label="Rut"
             hint="sin puntos y con guión"
             required
@@ -46,14 +44,12 @@
 
           <v-text-field
             v-model="model.email"
-            :rules="emailRules"
             label="Correo electrónico"
             required
           ></v-text-field>
 
           <v-text-field
             v-model="model.address"
-            :rules="addressRules"
             label="Dirección"
             required
           ></v-text-field>
@@ -69,7 +65,6 @@
 
           <v-checkbox
             v-model="checkbox"
-            :rules="[(v) => !!v || 'Debes aceptar para continuar']"
             label="Declaro que esta información es real"
             required
           ></v-checkbox>
@@ -78,7 +73,7 @@
             :disabled="!valid"
             color="success"
             class="mr-4"
-            @click="validate"
+            @click="requestPermit"
           >
             Solicitar permiso
           </v-btn>
@@ -90,6 +85,12 @@
           <v-btn to="/" class="mr-4" color="primary">
             volver
           </v-btn>
+          <p class="successText" v-if="successMessage">
+            {{ message }}
+          </p>
+          <p class="errorText" v-if="errorMessage">
+            {{ message }}
+          </p>
         </v-form>
       </v-container>
     </v-sheet>
@@ -100,12 +101,17 @@
 export default {
   data: () => ({
     model: {
-      name: "",
       run: "",
+      name: "",
       address: "",
-      email: "",
       reason: "",
+      email: "",
     },
+    valid: true,
+    checkbox: false,
+    successMessage: false,
+    errorMessage: false,
+    message: "",
   }),
   methods: {
     reset() {
@@ -114,6 +120,29 @@ export default {
       this.model.run = "";
       this.model.email = "";
       this.model.reason = "";
+    },
+    requestPermit() {
+      this.message = "";
+      this.successMessage = false;
+      this.errorMessage = false;
+      fetch("http://localhost:9090/forms/add", {
+        method: "POST",
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.model),
+      })
+        .then(() => {
+          this.message = "Éxito al pedir formulario.";
+          this.successMessage = true;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.message = "Error al enviar solicitud.";
+          this.errorMessage = true;
+        });
+      
     },
   },
 };
@@ -131,5 +160,11 @@ export default {
 .btn {
   margin-top: 10px;
   margin-bottom: 20px;
+}
+.errorText {
+  color: red;
+}
+.successText {
+  color: green;
 }
 </style>
