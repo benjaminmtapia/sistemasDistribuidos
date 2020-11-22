@@ -2,11 +2,11 @@
 - Andres Alcaíno (Frontend)
 - Benjamín Muñoz (Backend)
 
-### Contexto dle problema
+### Contexto del problema
 Se requiere la implementación de una aplicación web que permita generar permisos de salida en cuarentena a los usuarios. Este permiso deberá ser enviado al correo indicado en el formulario.
 
 ### Arquitectura del Sistema
-El objetivo del Sistema es recrear la página [comisariavirtual](https://comisariavirtual.cl/) y lograr analizar dicho sistema desde la perspectiva de los Sistemas Distribuidos. Cuya arquitectura se ve reflejada en el siguiente diagrama.
+El objetivo del Sistema es recrear la página [comisariavirtual](https://comisariavirtual.cl/) y lograr analizar dicho sistema desde la perspectiva de los Sistemas Distribuidos. Cuya arquitectura se ve reflejada en el   siguiente diagrama.
 
 ![Arquitectura de sistema](/images/Arquitectura_Pep1.png)
 
@@ -39,8 +39,24 @@ El objetivo del Sistema es recrear la página [comisariavirtual](https://comisar
 
 ### Capacidad de Respuesta del Sistema
 
-Para las pruebas se utiliza Artillery.io, el cual permite simular las peticiones POST al backend del Sistema. 
+Para las pruebas se utiliza Artillery.io, el cual permite simular las peticiones POST al backend del Sistema. Se realiza una prueba de 60 segundos con una tasa de 10 usuarios por segundo, lo cual dará como resultado 600 solicitudes, obteniendo lo siguiente: 
 
-### Imágenes de funcionamiento
+![Capacidad de respuesta](/images/test_carga.png)
 
+Respecto a los resultados se puede concluir que:
+- Se realizaron 600 solicitudes y todas se cumplieron con éxito.
+- Respecto a los tiempos, comparando media, mínimo y máximo, por lo que los tiempos son consistentes.
 
+Por otro lado, se evalúa el caso en que en un mismo segundo lleguen distintas cantidades de usuarios al mismo tiempo. Los resultados se ven reflejados en la siguiente tabla:
+
+Numero de Usuarios | Solicitudes completadas |
+--|--
+50 | 50
+100 | 100
+500 | 500 
+1000 |1000
+5000 | 4960
+6000 | 5758
+8000 | 5684
+
+Ya al presentar más de 5000 solicitudes en un segundo el sistema comienza a presentar fallas, no pudiendo lograr todas las solicitudes. En el caso de tener ya 8000 solicitudes en el mismo instante solo se obtiene un éxito en el 70% aproximadamente de éstas, y se debe considerar además que el sistema está corriendo en una máquina local, por lo que si se usara un servidor debería ser uno con elevadas características.
