@@ -125,7 +125,7 @@ export default {
       this.message = "";
       this.successMessage = false;
       this.errorMessage = false;
-      fetch("http://localhost:9090/forms/add", {
+      fetch("http://34.122.252.16:8080/forms/add", {
         method: "POST",
         mode: 'cors',
         headers: {
